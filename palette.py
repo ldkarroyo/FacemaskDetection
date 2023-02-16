@@ -18,3 +18,4 @@ FONT_TITLE = ("Corbel", 16, "bold")  # Titles in paragraphs and the like
 FONT_SMALL = ("Corbel", 12)  # Smaller font for small buttons, text
 FONT_TINY = ("Corbel", 9)  # Tiny font tiny text
 FONT_TINY_MONO = ("Consolas", 9)  # Tiny monospaced font for logs
+
