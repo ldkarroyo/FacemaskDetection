@@ -9,6 +9,7 @@ ACCENT_COLOR_01 = "#1791FF"
 ACCENT_COLOR_02 = "#FB5C5C"
 ACCENT_COLOR_03 = "#EBEBEB"
 ACCENT_COLOR_04 = "#9B9B9B"
+
 """Compilation of fonts for the application"""
 FONT = ("Corbel", 16)  # Regular font for regular text, buttons, subtitles
 FONT_TIMES = ("Times", 16)  # FONT but Helvetica
