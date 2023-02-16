@@ -1,6 +1,2 @@
 # Real-time Face Mask Detection and Validation System
- A desktop application that lets users run facemask detection through a camera input using the Convolutional Neural Network model, YOLOv5
-
-
- By Group TBD
- Submitted in partial fulfillment of the requirements for IT0129
+ A desktop application that lets users run facemask detection through a camera input using the Convolutional Neural Network model, YOLOv5.
