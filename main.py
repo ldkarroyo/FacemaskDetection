@@ -31,7 +31,7 @@ def destroy_widgets(frame):
 
 root = tk.Tk()
 root.title("Face Recognition")
-root.configure(background=palette.PRIMARY_COLOR_01)
+root.configure(background=palette.PRIMARY_COLOR_05)
 window_height = 720
 window_width = 1280
 
@@ -45,11 +45,8 @@ root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coordinate,
                                    y_coordinate))
 root.resizable(False, False)
 
-frame_left = tk.Frame(root, width=280, height=720, bg=palette.PRIMARY_COLOR_01)
-frame_right = tk.Frame(root,
-                       width=1000,
-                       height=720,
-                       bg=palette.PRIMARY_COLOR_03)
+frame_left = tk.Frame(root, width=280, height=720, bg=palette.PRIMARY_COLOR_05)
+frame_right = tk.Frame(root, width=1000, height=720, bg=palette.PRIMARY_COLOR_03)
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -65,7 +62,7 @@ overview_button = tk.Button(frame_left,
                             fg=palette.PRIMARY_COLOR_01,
                             width=15,
                             command=open_overview)
-overview_button.pack(padx=50, pady=30)
+overview_button.pack(padx=50, pady=10)
 
 global live_camera_button
 live_camera_button = tk.Button(
@@ -76,7 +73,7 @@ live_camera_button = tk.Button(
     width=15,
     command=open_camera_window,
 )
-live_camera_button.pack(pady=30)
+live_camera_button.pack(pady=10)
 
 # global image_upload_button
 # image_upload_button = tk.Button(frame_left,
