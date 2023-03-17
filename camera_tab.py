@@ -15,8 +15,8 @@ RES_WIDTH = 1920
 RES_HEIGHT = 1080
 
 # Resolution for Object Detection
-DETECT_WIDTH = 1280
-DETECT_HEIGHT = 720
+DETECT_WIDTH = 1600
+DETECT_HEIGHT = 900
 
 # Display Resolution for Tkinter Window
 DISPLAY_WIDTH = 496
@@ -55,7 +55,7 @@ def invoke_camera():
     # Activates Person Detection
     if MODEL_FLAG is True:
         str_results = "frame:\n"
-        frame = cv.resize(frame, (1280, 720), interpolation=cv.INTER_AREA)
+        frame = cv.resize(frame, (1600, 900), interpolation=cv.INTER_AREA)
 
         # Inference: Person Detection
         frame = model_person(frame)  #, size=640
@@ -191,8 +191,8 @@ def create_camera_win(root: tk.Tk):
     """Webcam Tab"""
     global camera_frame
     camera_frame = tk.Frame(root,
-                            height=720,
-                            width=580,
+                            height=900,
+                            width=900,
                             bg=palette.PRIMARY_COLOR_03)
     camera_frame.grid(row=0, column=1)
 
@@ -208,15 +208,15 @@ def create_camera_win(root: tk.Tk):
         font=palette.FONT_TITLE,
         bg=palette.PRIMARY_COLOR_03,
     )
-    camera_label.grid(row=0, column=0, columnspan=2, pady=20, padx=(25, 0))
+    camera_label.grid(row=0, column=0, columnspan=3, pady=20, padx=(25, 0))
 
     # This is the black box to alternate the camera feed's position
     global camera_box
     camera_box = tk.Frame(camera_frame,
-                          height=500,
-                          width=700,
+                          height=680,
+                          width=1390,
                           bg=palette.PRIMARY_COLOR_02)
-    camera_box.grid(row=1, column=0, columnspan=2, padx=(25))
+    camera_box.grid(row=1, column=0, columnspan=3, padx=(10))
 
     # Button to signal the camera to turn on/off
     global button_toggle
@@ -229,7 +229,7 @@ def create_camera_win(root: tk.Tk):
         fg=palette.PRIMARY_COLOR_02,
         command=toggle_camera,
     )
-    button_toggle.grid(row=2, column=0, padx=(25), pady=(20, 10))
+    button_toggle.grid(row=2, column=0, padx=(10), pady=(20, 10))
     button_toggle.bind("<Enter>", on_enter)
     button_toggle.bind("<Leave>", on_leave)
 
@@ -245,7 +245,7 @@ def create_camera_win(root: tk.Tk):
         state=tk.DISABLED,
         command=start_model,
     )
-    button_start.grid(row=3, column=0, padx=(25), pady=10)
+    button_start.grid(row=2, column=1, padx=(10), pady=(20, 10))
     button_start.bind("<Enter>", on_enter)
     button_start.bind("<Leave>", on_leave)
 
@@ -261,7 +261,7 @@ def create_camera_win(root: tk.Tk):
         command=stop_model,
         state=tk.DISABLED,
     )
-    button_end.grid(row=3, column=1, pady=20)
+    button_end.grid(row=2, column=2, pady=(20, 10))
     button_end.bind("<Enter>", on_enter_warn)
     button_end.bind("<Leave>", on_leave)
 
@@ -279,8 +279,8 @@ def create_camera_win(root: tk.Tk):
 
     # Log Section Frame
     log_frame = tk.Frame(root,
-                         height=720,
-                         width=420,
+                         height=900,
+                         width=340,
                          bg=palette.PRIMARY_COLOR_03)
     log_frame.grid(row=0, column=2)
     log_frame.grid_propagate(False)
@@ -318,7 +318,7 @@ def create_camera_win(root: tk.Tk):
     log_labelframe = tk.LabelFrame(
         log_frame,
         height=root.winfo_height() - 150,
-        width=300,
+        width=400,
         text="Logged Events [class number, class name, confidence %]",
     )
     log_labelframe.grid(row=1, column=0, columnspan=2, padx=(20, 20))
