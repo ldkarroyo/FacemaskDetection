@@ -280,7 +280,7 @@ def create_camera_win(root: tk.Tk):
     # Log Section Frame
     log_frame = tk.Frame(root,
                          height=900,
-                         width=340,
+                         width=640,
                          bg=palette.PRIMARY_COLOR_03)
     log_frame.grid(row=0, column=2)
     log_frame.grid_propagate(False)
