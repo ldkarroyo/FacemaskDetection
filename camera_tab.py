@@ -19,29 +19,19 @@ DETECT_WIDTH = 1600
 DETECT_HEIGHT = 900
 
 # Display Resolution for Tkinter Window
-DISPLAY_WIDTH = 496
-DISPLAY_HEIGHT = 279
+DISPLAY_WIDTH = 870
+DISPLAY_HEIGHT = 490
 
 
-
-# YOLOv5s6 Person Detector
-
-model_person = torch.hub.load('ultralytics/yolov5',
-                              'yolov5s6',
-                              pretrained=True)
-model_person.classes = 0  # class for persons
-model_person.conf = 0.60  # minimum confidence
-model_person.iou = 0.50  # overlap threshold or intersection-over-union
-model_person.line_thickness = 1  # thickness of bounding boxes' lines
-model_person.img = 640  # img-size
-
-
-#########################################
-#          Auxillary Functions          #
-#########################################
-def ratio_convert(ref_object: float, current: int, new: int):
-    """Scales a value based on a given ratio"""
-    return int(ref_object * new / current)
+# Face Mask Detector based on yolov5s.pt weights from YOLOv5
+model = torch.hub.load("ultralytics/yolov5",
+                              "custom",
+                              path="tbd_facedet.pt",
+                              force_reload=True)
+model.conf = 0.60  # minimum confidence
+model.iou = 0.50  # overlap threshold or intersection-over-union
+#model.line_thickness = 3  # thickness of bounding boxes' lines
+#model.img = 640  # img-size
 
 
 ###############################################
@@ -52,19 +42,18 @@ def invoke_camera():
     _, frame = capture.read()
 
     # print(frame.shape)
-    # Activates Person Detection
+    # Activates Detection
     if MODEL_FLAG is True:
         str_results = "frame:\n"
-        frame = cv.resize(frame, (1600, 900), interpolation=cv.INTER_AREA)
 
-        # Inference: Person Detection
-        frame = model_person(frame)  #, size=640
-        personcrops = frame.crop(save=False)
+        # Inference: Face Mask Detection
+        frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
+        frame = model(frame)  #, size=640
 
         frame = np.squeeze(frame.render())
-
-    # Convert to tkinter-compatible format
-    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGBA)
+    else:
+        # Convert to tkinter-compatible format
+        frame = cv.cvtColor(frame, cv.COLOR_BGR2RGBA)
 
     # Resize the display to fit the Tkinter Window
     frame = cv.resize(frame, (DISPLAY_WIDTH, DISPLAY_HEIGHT),
@@ -88,7 +77,7 @@ def toggle_camera():
         camera_viewport = tk.Label(camera_frame,
                                    bg=palette.PRIMARY_COLOR_02,
                                    fg=palette.PRIMARY_COLOR_02)
-        camera_viewport.grid(row=1, column=0, columnspan=2)
+        camera_viewport.grid(row=1, column=0, columnspan=3)
 
         capture = cv.VideoCapture(0)
         if capture is None or not capture.isOpened():
@@ -128,7 +117,6 @@ def stop_model():
     """Triggers detection model termination at button push"""
     global MODEL_FLAG
     MODEL_FLAG = False
-    #timer.cancel()
 
     button_start["state"] = tk.NORMAL
     button_end["state"] = tk.DISABLED
