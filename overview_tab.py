@@ -6,8 +6,8 @@ def create_overview_win(root: tk.Tk):
     """Overview Tab"""
     global overview_frame
     overview_frame = tk.Frame(root,
-                              height=720,
-                              width=1000,
+                              height=900,
+                              width=1400,
                               bg=palette.PRIMARY_COLOR_03)
     overview_frame.grid(row=0, column=1)
     overview_frame.pack_propagate(False)

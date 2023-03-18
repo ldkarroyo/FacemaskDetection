@@ -4,6 +4,9 @@ PRIMARY_COLOR_01 = "#FFFFFF"
 PRIMARY_COLOR_02 = "#000000"
 PRIMARY_COLOR_03 = "#ECF6FF"
 PRIMARY_COLOR_04 = "#163057"
+PRIMARY_COLOR_05 = "#36454F"
+PRIMARY_COLOR_06 = "#7393B3"
+PRIMARY_COLOR_07 = "#6082B6"
 SECONDARY_COLOR_01 = "#FF8BF3"
 ACCENT_COLOR_01 = "#1791FF"
 ACCENT_COLOR_02 = "#FB5C5C"
@@ -18,4 +21,3 @@ FONT_TITLE = ("Corbel", 16, "bold")  # Titles in paragraphs and the like
 FONT_SMALL = ("Corbel", 12)  # Smaller font for small buttons, text
 FONT_TINY = ("Corbel", 9)  # Tiny font tiny text
 FONT_TINY_MONO = ("Consolas", 9)  # Tiny monospaced font for logs
-

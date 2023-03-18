@@ -2,6 +2,7 @@ import tkinter as tk
 import camera_tab
 import overview_tab
 import palette
+from ttkthemes import ThemedTk
 
 def open_overview():
     """Opens the overview tab"""
@@ -29,11 +30,12 @@ def destroy_widgets(frame):
         widget.destroy()
 
 
-root = tk.Tk()
+#root = tk.Tk()
+root = ThemedTk('equilux')
 root.title("Face Recognition")
-root.configure(background=palette.PRIMARY_COLOR_01)
-window_height = 720
-window_width = 1280
+root.configure(background=palette.PRIMARY_COLOR_06)
+window_height = 900
+window_width = 1600
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -45,11 +47,8 @@ root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coordinate,
                                    y_coordinate))
 root.resizable(False, False)
 
-frame_left = tk.Frame(root, width=280, height=720, bg=palette.PRIMARY_COLOR_01)
-frame_right = tk.Frame(root,
-                       width=1000,
-                       height=720,
-                       bg=palette.PRIMARY_COLOR_03)
+frame_left = tk.Frame(root, width=210, height=900, bg=palette.PRIMARY_COLOR_06)
+frame_right = tk.Frame(root, width=1390, height=900, bg=palette.PRIMARY_COLOR_07)
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -65,7 +64,7 @@ overview_button = tk.Button(frame_left,
                             fg=palette.PRIMARY_COLOR_01,
                             width=15,
                             command=open_overview)
-overview_button.pack(padx=50, pady=30)
+overview_button.pack(padx=10, pady=10)
 
 global live_camera_button
 live_camera_button = tk.Button(
@@ -76,7 +75,7 @@ live_camera_button = tk.Button(
     width=15,
     command=open_camera_window,
 )
-live_camera_button.pack(pady=30)
+live_camera_button.pack(pady=10)
 
 # global image_upload_button
 # image_upload_button = tk.Button(frame_left,
