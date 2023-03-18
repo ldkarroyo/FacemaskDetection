@@ -45,7 +45,7 @@ def create_overview_win(root: tk.Tk):
                                  justify="left",
                                  anchor=tk.W,
                                  wraplength=900)
-    description_label.pack(fill=tk.X, padx=54, pady=(20, 0))
+    description_label.pack(fill=tk.X, padx=254, pady=(20, 0))
 
     description = tk.Label(
         overview_frame,
