@@ -2,7 +2,6 @@ import tkinter as tk
 import camera_tab
 import overview_tab
 import palette
-from ttkthemes import ThemedTk
 
 def open_overview():
     """Opens the overview tab"""
@@ -25,13 +24,13 @@ def destroy_widgets(frame):
     if camera_tab.CAMERA_FLAG == True:
         camera_tab.CAMERA_FLAG = False
         camera_tab.capture.release()
+        MODEL_FLAG = False
 
     for widget in frame.winfo_children():
         widget.destroy()
 
 
-#root = tk.Tk()
-root = ThemedTk('equilux')
+root = tk.Tk()
 root.title("Face Recognition")
 root.configure(background=palette.PRIMARY_COLOR_06)
 window_height = 900
@@ -76,16 +75,6 @@ live_camera_button = tk.Button(
     command=open_camera_window,
 )
 live_camera_button.pack(pady=10)
-
-# global image_upload_button
-# image_upload_button = tk.Button(frame_left,
-#                                 text="Image Upload",
-#                                 font=palette.FONT,
-#                                 fg=palette.PRIMARY_COLOR_01,
-#                                 width=15)
-# image_upload_button.pack(pady=30)
-
-# root.update()
 
 open_overview()
 root.mainloop()
