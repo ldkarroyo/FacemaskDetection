@@ -32,9 +32,9 @@ def destroy_widgets(frame):
 
 root = tk.Tk()
 root.title("Face Recognition")
-root.configure(background=palette.PRIMARY_COLOR_06)
-window_height = 900
-window_width = 1600
+root.configure(background=palette.PRIMARY_COLOR_01)
+window_height = 720
+window_width = 1280
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -46,8 +46,8 @@ root.geometry("{}x{}+{}+{}".format(window_width, window_height, x_coordinate,
                                    y_coordinate))
 root.resizable(False, False)
 
-frame_left = tk.Frame(root, width=210, height=900, bg=palette.PRIMARY_COLOR_06)
-frame_right = tk.Frame(root, width=1390, height=900, bg=palette.PRIMARY_COLOR_07)
+frame_left = tk.Frame(root, width=280, height=720, bg=palette.PRIMARY_COLOR_01)
+frame_right = tk.Frame(root, width=1000, height=720, bg=palette.PRIMARY_COLOR_03)
 
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)

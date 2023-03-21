@@ -15,18 +15,18 @@ RES_WIDTH = 1920
 RES_HEIGHT = 1080
 
 # Resolution for Object Detection
-DETECT_WIDTH = 1600
-DETECT_HEIGHT = 900
+DETECT_WIDTH = 1280
+DETECT_HEIGHT = 720
 
 # Display Resolution for Tkinter Window
-DISPLAY_WIDTH = 870
-DISPLAY_HEIGHT = 490
+DISPLAY_WIDTH = 496
+DISPLAY_HEIGHT = 279
 
 
 # Face Mask Detector based on yolov5s.pt weights from YOLOv5
 model = torch.hub.load("ultralytics/yolov5",
                               "custom",
-                              path="tbd_facedet.pt",
+                              path="/home/rez/Documents/FaceMaskDetect/FacemaskDetection/tbd_facedet.pt",
                               force_reload=True)
 model.conf = 0.60  # minimum confidence
 model.iou = 0.50  # overlap threshold or intersection-over-union
@@ -179,8 +179,8 @@ def create_camera_win(root: tk.Tk):
     """Webcam Tab"""
     global camera_frame
     camera_frame = tk.Frame(root,
-                            height=900,
-                            width=900,
+                            height=720,
+                            width=580,
                             bg=palette.PRIMARY_COLOR_03)
     camera_frame.grid(row=0, column=1)
 
@@ -196,13 +196,13 @@ def create_camera_win(root: tk.Tk):
         font=palette.FONT_TITLE,
         bg=palette.PRIMARY_COLOR_03,
     )
-    camera_label.grid(row=0, column=0, columnspan=3, pady=20, padx=(25, 0))
+    camera_label.grid(row=0, column=0, columnspan=2, pady=20, padx=(50, 0))
 
     # This is the black box to alternate the camera feed's position
     global camera_box
     camera_box = tk.Frame(camera_frame,
-                          height=680,
-                          width=1390,
+                          height=300,
+                          width=500,
                           bg=palette.PRIMARY_COLOR_02)
     camera_box.grid(row=1, column=0, columnspan=3, padx=(10))
 
@@ -217,7 +217,7 @@ def create_camera_win(root: tk.Tk):
         fg=palette.PRIMARY_COLOR_02,
         command=toggle_camera,
     )
-    button_toggle.grid(row=2, column=0, padx=(10), pady=(20, 10))
+    button_toggle.grid(row=2, column=0, padx=(50, 0), pady=(40, 20))
     button_toggle.bind("<Enter>", on_enter)
     button_toggle.bind("<Leave>", on_leave)
 
@@ -233,7 +233,7 @@ def create_camera_win(root: tk.Tk):
         state=tk.DISABLED,
         command=start_model,
     )
-    button_start.grid(row=2, column=1, padx=(10), pady=(20, 10))
+    button_start.grid(row=3, column=0, padx=(50, 0), pady=20)
     button_start.bind("<Enter>", on_enter)
     button_start.bind("<Leave>", on_leave)
 
@@ -249,7 +249,7 @@ def create_camera_win(root: tk.Tk):
         command=stop_model,
         state=tk.DISABLED,
     )
-    button_end.grid(row=2, column=2, pady=(20, 10))
+    button_end.grid(row=3, column=1, pady=20)
     button_end.bind("<Enter>", on_enter_warn)
     button_end.bind("<Leave>", on_leave)
 
@@ -267,8 +267,8 @@ def create_camera_win(root: tk.Tk):
 
     # Log Section Frame
     log_frame = tk.Frame(root,
-                         height=900,
-                         width=640,
+                         height=720,
+                         width=420,
                          bg=palette.PRIMARY_COLOR_03)
     log_frame.grid(row=0, column=2)
     log_frame.grid_propagate(False)
@@ -284,7 +284,7 @@ def create_camera_win(root: tk.Tk):
         fg=palette.PRIMARY_COLOR_02,
         command=clear_log,
     )
-    button_clear_log.grid(row=0, column=0, pady=(70, 20), padx=(20, 20))
+    button_clear_log.grid(row=0, column=0, pady=(70, 20), padx=(0, 20))
     button_clear_log.bind("<Enter>", on_enter)
     button_clear_log.bind("<Leave>", on_leave)
 
@@ -309,7 +309,7 @@ def create_camera_win(root: tk.Tk):
         width=400,
         text="Logged Events [class number, class name, confidence %]",
     )
-    log_labelframe.grid(row=1, column=0, columnspan=2, padx=(20, 20))
+    log_labelframe.grid(row=1, column=0, columnspan=2, padx=(0, 20))
     log_labelframe.pack_propagate(False)
 
     scrollbar = tk.Scrollbar(log_labelframe)
