@@ -44,13 +44,26 @@ def invoke_camera():
     # print(frame.shape)
     # Activates Detection
     if MODEL_FLAG is True:
-        str_results = "frame:\n"
+        str_results = "\nframe:\n"
 
         # Inference: Face Mask Detection
         frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
         frame = model(frame)  #, size=640
+        
+        # store the pandas dataframe
+        dataframe_results = frame.pandas().xyxy[0]
+        dataframe_results = dataframe_results.reset_index()
 
         frame = np.squeeze(frame.render())
+
+        #Log Lines
+        for index, row in dataframe_results.iterrows():
+                    rounded_confidence = str(round(row["confidence"] * 100, 2))
+                    str_results += ("\t[" + str(row["class"]) + ", " +
+                                    str(row["name"]) + ", " +
+                                    rounded_confidence + "%]\n")
+        
+        update_log(log_lines, str_results)
     else:
         # Convert to tkinter-compatible format
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGBA)

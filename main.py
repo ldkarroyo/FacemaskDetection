@@ -24,14 +24,14 @@ def destroy_widgets(frame):
     if camera_tab.CAMERA_FLAG == True:
         camera_tab.CAMERA_FLAG = False
         camera_tab.capture.release()
-        MODEL_FLAG = False
+        camera_tab.MODEL_FLAG = False
 
     for widget in frame.winfo_children():
         widget.destroy()
 
 
 root = tk.Tk()
-root.title("Face Recognition")
+root.title("Real-time Face Mask Detection and Validation System")
 root.configure(background=palette.PRIMARY_COLOR_06)
 window_height = 900
 window_width = 1600
