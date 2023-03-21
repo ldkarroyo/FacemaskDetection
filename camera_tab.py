@@ -26,7 +26,7 @@ DISPLAY_HEIGHT = 279
 # Face Mask Detector based on yolov5s.pt weights from YOLOv5
 model = torch.hub.load("ultralytics/yolov5",
                               "custom",
-                              path="/home/rez/Documents/FaceMaskDetect/FacemaskDetection/tbd_facedet.pt",
+                              path="FacemaskDetection/tbd_facedet.pt",
                               force_reload=True)
 model.conf = 0.60  # minimum confidence
 model.iou = 0.50  # overlap threshold or intersection-over-union
@@ -44,13 +44,26 @@ def invoke_camera():
     # print(frame.shape)
     # Activates Detection
     if MODEL_FLAG is True:
-        str_results = "frame:\n"
+        str_results = "\nframe:\n"
 
         # Inference: Face Mask Detection
         frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
         frame = model(frame)  #, size=640
+        
+        # store the pandas dataframe
+        dataframe_results = frame.pandas().xyxy[0]
+        dataframe_results = dataframe_results.reset_index()
 
         frame = np.squeeze(frame.render())
+
+        #Log Lines
+        for index, row in dataframe_results.iterrows():
+                    rounded_confidence = str(round(row["confidence"] * 100, 2))
+                    str_results += ("\t[" + str(row["class"]) + ", " +
+                                    str(row["name"]) + ", " +
+                                    rounded_confidence + "%]\n")
+        
+        update_log(log_lines, str_results)
     else:
         # Convert to tkinter-compatible format
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGBA)
@@ -196,7 +209,7 @@ def create_camera_win(root: tk.Tk):
         font=palette.FONT_TITLE,
         bg=palette.PRIMARY_COLOR_03,
     )
-    camera_label.grid(row=0, column=0, columnspan=2, pady=20, padx=(50, 0))
+    camera_label.grid(row=0, column=0, columnspan=2, pady=20, padx=(25, 0))
 
     # This is the black box to alternate the camera feed's position
     global camera_box
@@ -204,7 +217,7 @@ def create_camera_win(root: tk.Tk):
                           height=300,
                           width=500,
                           bg=palette.PRIMARY_COLOR_02)
-    camera_box.grid(row=1, column=0, columnspan=3, padx=(10))
+    camera_box.grid(row=1, column=0, columnspan=2, padx=(10))
 
     # Button to signal the camera to turn on/off
     global button_toggle
@@ -253,18 +266,6 @@ def create_camera_win(root: tk.Tk):
     button_end.bind("<Enter>", on_enter_warn)
     button_end.bind("<Leave>", on_leave)
 
-    # Notes Section
-    # notes01 = tk.Label(
-    #     camera_frame,
-    #     text=
-    #     """Users, please note that the camera may take a few seconds when being called.\nUsers who have virtual cameras set up (eg. OBS Virtual Camera), if your virtual cameras are not configured and are imposing priority over your physical camera device, a key solution is to temporarily uninstall/deactivate them. Otherwise, please disregard this.\n\nFeel free to ask any team member for assistance. Thank you very much!""",
-    #     font=palette.FONT_TINY,
-    #     bg=palette.PRIMARY_COLOR_03,
-    #     justify="left",
-    #     wraplength=500,
-    # )
-    # notes01.grid(row=4, column=0, columnspan=2, pady=10)
-
     # Log Section Frame
     log_frame = tk.Frame(root,
                          height=720,
@@ -309,7 +310,7 @@ def create_camera_win(root: tk.Tk):
         width=400,
         text="Logged Events [class number, class name, confidence %]",
     )
-    log_labelframe.grid(row=1, column=0, columnspan=2, padx=(0, 20))
+    log_labelframe.grid(row=1, column=0, columnspan=2, padx=(20, 20))
     log_labelframe.pack_propagate(False)
 
     scrollbar = tk.Scrollbar(log_labelframe)
